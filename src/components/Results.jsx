@@ -12,7 +12,6 @@ const GetResults = () => {
         axios.get(`https://jsonplaceholder.typicode.com/comments`)
             .then((response) => {
                 setComments(response.data)
-                console.log(response.data.name)
             })
             .catch(error => {
                 console.log("Error in fetching results", error);
