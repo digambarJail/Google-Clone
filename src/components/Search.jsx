@@ -1,3 +1,5 @@
+// Search.jsx
+
 import React, { useEffect, useState } from 'react';
 import SearchLogo from '/search.svg'; // Corrected path to search.svg
 import VoiceIcon from '/google_mic_icon.svg';
@@ -5,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import GoogleLens from '/Google_Lens_Icon.svg';
 import axios from 'axios';
 
-const Search = () => {
+const Search = ({ onSearchTextChange }) => {
     const navigate = useNavigate();
     const [searchText, setSearchText] = useState('');
     const [users, setUsers] = useState([]);
@@ -25,8 +27,19 @@ const Search = () => {
     }, []);
 
     const handleSearch = (e) => {
-        setSearchText(e.target.value);
+        const text = e.target.value;
+        setSearchText(text);
         setShowResults(true);
+        // Call the callback function to update searchText in Homepage
+        onSearchTextChange(text);
+    };
+
+    const handleKeyDown = (e) => {
+        if (e.key === 'Enter') {
+            // Navigate to the result page if Enter key is pressed
+            navigate(`/results/${searchText}`);
+            setShowResults(false);
+        }
     };
 
     const filterUsers = (users, searchText) => {
@@ -35,7 +48,6 @@ const Search = () => {
         );
     };
 
-    
     const filteredUsers = filterUsers(users, searchText);
 
     const searchResult = (commentId) => {
@@ -58,14 +70,6 @@ const Search = () => {
             window.removeEventListener('click', handleClickOutside);
         };
     }, []);
-
-    const handleKeyDown = (e) => {
-        if (e.key === 'Enter') {
-            // Navigate to the result page if Enter key is pressed
-            navigate(`/results/${searchText}`);
-            setShowResults(false);
-        }
-    };
 
     return (
         <div id="search-container" className="my-4 mx-auto max-w-md relative">
