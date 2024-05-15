@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import Search from './Search';
-import Google from '/Google_2015_logo.svg'; 
+import Google from '/googlelogo.png'; 
 import { useNavigate } from 'react-router-dom';
 
 const Homepage = () => {
