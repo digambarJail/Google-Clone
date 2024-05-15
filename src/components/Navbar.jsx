@@ -1,5 +1,5 @@
 import React from 'react';
-import GoogleLogo from '/Google_2015_logo.svg';
+import GoogleLogo from '/googlelogo.png';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 const Navbar = () => {
